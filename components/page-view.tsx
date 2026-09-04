@@ -136,6 +136,19 @@ type VisualStory = {
   copy: string;
 };
 
+const visualStoryIntros: Record<string, { label: string; title: string; copy: string }> = {
+  "/solutions/reality-capture-digital-engineering/": {
+    label: "From physical asset to usable engineering",
+    title: "See how each digital engineering discipline creates value.",
+    copy: "The right output depends on the decision your team needs to make. Birdseye connects accurate capture with practical engineering deliverables—from an as-built model to a printed fit-check prototype.",
+  },
+  "/solutions/asset-intelligence-assessment/": {
+    label: "From evidence to action",
+    title: "Make inspection information easier to understand and use.",
+    copy: "Birdseye organizes field evidence around the asset, reveals what changed, helps teams focus on the most important findings and prepares the information for maintenance action.",
+  },
+};
+
 const visualStories: Record<string, VisualStory[]> = {
   "/": [{
     src: "/visuals/delivery.webp",
@@ -165,6 +178,80 @@ const visualStories: Record<string, VisualStory[]> = {
     title: "Regional accountability from capture to decision.",
     copy: "Birdseye combines local execution, industrial experience and the right specialist capabilities around each customer challenge.",
   }],
+  "/solutions/reality-capture-digital-engineering/": [
+    {
+      src: "/visuals/engineering-scan-to-bim.webp",
+      alt: "An operating process plant transforms into a laser point cloud and then an accurate coordinated BIM model",
+      label: "Scan-to-BIM",
+      title: "Plan changes around what is actually on site.",
+      copy: "Outdated plans create uncertainty and costly surprises. We capture the existing facility and build a dependable BIM model, helping design and project teams coordinate retrofit work, reduce clashes and limit rework.",
+    },
+    {
+      src: "/visuals/engineering-scan-to-cad.webp",
+      alt: "A brownfield pipe rack transitions from the physical installation into precise CAD linework and an as-built model",
+      label: "Scan-to-CAD & as-built drawings",
+      title: "Give engineers a reliable starting point.",
+      copy: "When drawings are missing or no longer match the asset, engineering slows down. Birdseye converts captured geometry into usable 2D drawings and 3D CAD models, reducing manual measurement and repeat site visits.",
+    },
+    {
+      src: "/visuals/engineering-reverse-engineering.webp",
+      alt: "A worn industrial impeller is scanned, reconstructed as a digital mesh and converted into a precise engineered model",
+      label: "Reverse engineering",
+      title: "Recreate the information behind a legacy part.",
+      copy: "Obsolete or undocumented components can hold up maintenance. We capture the real part and rebuild its geometry, giving your team a sound basis for redesign, repair planning or replacement sourcing.",
+    },
+    {
+      src: "/visuals/engineering-dimensional-verification.webp",
+      alt: "An industrial skid is scanned and aligned with its design model to reveal fit and dimensional deviations",
+      label: "Dimensional verification",
+      title: "Find fit and deviation issues before installation.",
+      copy: "A small dimensional mismatch can become expensive on site. Actual-versus-design comparison helps teams verify fabrication, interfaces and assembly conditions early—protecting schedules and installation productivity.",
+    },
+    {
+      src: "/visuals/engineering-3d-printing.webp",
+      alt: "A legacy mechanical component moves from 3D scan to refined digital model and a printed validation prototype",
+      label: "Scan-to-3D printing",
+      title: "Move from physical part to practical prototype faster.",
+      copy: "A digital model can become a printed prototype for fit, handling or design validation. This gives teams a faster, lower-risk way to test ideas before committing to final fabrication or procurement.",
+    },
+  ],
+  "/solutions/asset-intelligence-assessment/": [
+    {
+      src: "/visuals/assessment-structured-evidence.webp",
+      alt: "Visual, thermal, ultrasonic and 3D inspection evidence is precisely linked to a storage tank and pipe system",
+      label: "Structured asset evidence",
+      title: "Bring scattered inspection information into one clear asset record.",
+      copy: "Images, measurements and models lose value when they sit in separate folders. Birdseye links the evidence to the correct asset and location, improving traceability and making future review much faster.",
+    },
+    {
+      src: "/visuals/assessment-condition-review.webp",
+      alt: "An inspection engineer reviews condition evidence aligned to corrosion and weld areas on a pressure vessel",
+      label: "Condition & defect assessment",
+      title: "Turn large datasets into findings people can act on.",
+      copy: "Your team should not have to search through thousands of files to understand condition. We structure and assess the evidence so relevant defects, anomalies and review areas become easier to see and discuss.",
+    },
+    {
+      src: "/visuals/assessment-change-detection.webp",
+      alt: "The same industrial pipeline is compared at two points in time to reveal coating loss and corrosion progression",
+      label: "Change detection",
+      title: "See what changed—not just what was captured.",
+      copy: "Repeat inspections become more useful when the records can be compared consistently. Aligned imagery, measurements and 3D data help teams recognize deterioration earlier and make better-timed maintenance decisions.",
+    },
+    {
+      src: "/visuals/assessment-prioritization.webp",
+      alt: "A maintenance team reviews spatially ranked findings across an operating process facility",
+      label: "Maintenance prioritization",
+      title: "Focus people and budget where they matter most.",
+      copy: "Not every finding has the same consequence. Birdseye helps organize condition evidence around agreed severity and operational context, so maintenance teams can focus effort on the most important areas first.",
+    },
+    {
+      src: "/visuals/assessment-system-action.webp",
+      alt: "Field inspection evidence becomes a structured digital asset model and a prepared maintenance activity",
+      label: "Asset-system integration",
+      title: "Connect field evidence with maintenance action.",
+      copy: "Inspection value is lost when findings stop at a report. We prepare structured asset and work-order information for EAM, AMS or GIS environments, creating a clearer path from evidence to planned work.",
+    },
+  ],
 };
 
 const leadershipProfiles = [
@@ -302,14 +389,22 @@ function IdeaJourney() {
 
 function StoryVisuals({ route }: { route: string }) {
   const stories = visualStories[route] ?? [];
+  const intro = visualStoryIntros[route];
   if (stories.length === 0) return null;
   return (
-    <section className="section visual-stories">
+    <section className={`section visual-stories ${stories.length > 1 ? "visual-stories-deep" : ""}`}>
       <div className="container">
+        {intro && (
+          <div className="visual-story-intro">
+            <div><p className="eyebrow">{intro.label}</p><h2>{intro.title}</h2></div>
+            <p>{intro.copy}</p>
+          </div>
+        )}
         <div className="visual-story-grid">
-          {stories.map((story) => (
+          {stories.map((story, index) => (
             <article className="visual-story" key={story.src}>
               <div className="visual-story-copy">
+                {stories.length > 1 && <span className="visual-story-index">{String(index + 1).padStart(2, "0")}</span>}
                 <p className="eyebrow">{story.label}</p>
                 <h2>{story.title}</h2>
                 <p>{story.copy}</p>
