@@ -136,6 +136,57 @@ type VisualStory = {
   copy: string;
 };
 
+type ArticleSectionVisual = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+const articleSectionVisuals: Record<string, Record<string, ArticleSectionVisual>> = {
+  "/solutions/reality-capture-digital-engineering/": {
+    "The Customer Challenge": {
+      src: "/visuals/engineering-section-challenge.webp",
+      alt: "An engineer compares an outdated drawing with the actual brownfield pipework installed on site",
+      caption: "When drawings and reality no longer match, every engineering decision carries more uncertainty.",
+    },
+    "How Birdseye Helps": {
+      src: "/visuals/engineering-section-capture.webp",
+      alt: "Laser scanning and structured-light capture create accurate point-cloud data from an industrial pump installation",
+      caption: "Birdseye selects the right capture method for the asset, access conditions and required engineering output.",
+    },
+    "What We Provide": {
+      src: "/visuals/engineering-reverse-engineering.webp",
+      alt: "A worn industrial component moves from physical inspection through a point cloud to an engineered digital model",
+      caption: "From point clouds to CAD, BIM and reverse-engineered geometry, the deliverable is built around the work your team must complete.",
+    },
+    "Typical Assets and Environments": {
+      src: "/visuals/engineering-section-assets.webp",
+      alt: "An industrial plant, a dense pipe corridor and a precision mechanical component show the range of assets Birdseye can capture",
+      caption: "The same disciplined capture-to-engineering process scales from complete facilities to individual parts.",
+    },
+    "What You Receive": {
+      src: "/visuals/engineering-section-deliverables.webp",
+      alt: "A pump skid progresses from the physical asset through a point cloud and mesh to drawings and a coordinated digital model",
+      caption: "A controlled digital workflow converts field reality into the format your engineering team can use immediately.",
+    },
+    "Value for Your Business": {
+      src: "/visuals/engineering-section-value.webp",
+      alt: "A prefabricated pipe spool is aligned accurately with an existing industrial installation before final fit-up",
+      caption: "Reliable dimensions reduce site adjustments, avoid rework and help installation teams get the fit right first time.",
+    },
+    "How the Work Is Delivered": {
+      src: "/visuals/engineering-section-delivery.webp",
+      alt: "A field scan flows into a registered point cloud and then into an engineering-ready digital model",
+      caption: "Accuracy, level of detail and acceptance criteria are agreed first, then controlled from capture through delivery.",
+    },
+    "Relevant Customer Stories": {
+      src: "/visuals/engineering-section-proof.webp",
+      alt: "Chimney inspection data and a LiDAR point cloud reveal an internal centerline deviation for engineering review",
+      caption: "In one chimney assessment, structured 3D evidence helped the engineering team understand a 150 mm internal shift.",
+    },
+  },
+};
+
 const visualStoryIntros: Record<string, { label: string; title: string; copy: string }> = {
   "/solutions/reality-capture-digital-engineering/": {
     label: "From physical asset to usable engineering",
@@ -450,6 +501,7 @@ function LeadershipProfiles() {
 }
 
 function SectionContent({ page }: { page: SitePage }) {
+  const visualsForPage = articleSectionVisuals[page.route] ?? {};
   return (
     <div className="article-sections">
       {page.sections.map((section, sectionIndex) => {
@@ -459,9 +511,10 @@ function SectionContent({ page }: { page: SitePage }) {
         const isHelp = /How Birdseye Helps|Birdseye's Approach/.test(section.title);
         const isValue = /Value for|Recorded Result|Why Customers Choose/.test(section.title);
         const isLast = sectionIndex === page.sections.length - 1;
+        const sectionVisual = visualsForPage[section.title];
         return (
           <section
-            className={`article-section ${isChallenge ? "is-challenge" : ""} ${isHelp ? "is-help" : ""} ${isValue ? "is-value" : ""} ${isLast ? "is-last" : ""}`}
+            className={`article-section ${sectionVisual ? "has-visual" : ""} ${isChallenge ? "is-challenge" : ""} ${isHelp ? "is-help" : ""} ${isValue ? "is-value" : ""} ${isLast ? "is-last" : ""}`}
             key={`${section.title}-${sectionIndex}`}
           >
             <div className="section-heading">
@@ -482,6 +535,12 @@ function SectionContent({ page }: { page: SitePage }) {
                 </ul>
               )}
             </div>
+            {sectionVisual && (
+              <figure className="article-section-visual">
+                <img src={assetPath(sectionVisual.src)} alt={sectionVisual.alt} loading="lazy" />
+                <figcaption>{sectionVisual.caption}</figcaption>
+              </figure>
+            )}
           </section>
         );
       })}
