@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   description:
     "Birdseye combines inspection, reality capture, digital engineering and assessment to turn physical industrial assets into useful digital intelligence.",
   icons: {
-    icon: assetPath("/birdseye-logo.png"),
-    shortcut: assetPath("/birdseye-logo.png"),
+    icon: assetPath("/birdseye-mark.png"),
+    shortcut: assetPath("/birdseye-mark.png"),
   },
 };
 

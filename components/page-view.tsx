@@ -40,6 +40,39 @@ const idea = [
 
 const solutionIcons = [ShieldCheck, Map, Layers3, Gauge];
 
+const solutionVisuals: Record<string, string> = {
+  "/solutions/indoor-confined-space/": "/visuals/solution-indoor.webp",
+  "/solutions/outdoor-asset-intelligence/": "/visuals/solution-outdoor.webp",
+  "/solutions/reality-capture-digital-engineering/": "/visuals/solution-engineering.webp",
+  "/solutions/asset-intelligence-assessment/": "/visuals/solution-assessment.webp",
+};
+
+const routeVisuals: Record<string, string> = {
+  "/": "/visuals/hero-digital-intelligence.webp",
+  "/solutions/": "/visuals/hero-digital-intelligence.webp",
+  "/industries/": "/visuals/industries.webp",
+  "/case-studies/": "/visuals/customer-results.webp",
+  "/about-us/": "/visuals/delivery.webp",
+  "/contact-us/": "/visuals/customer-results.webp",
+  ...solutionVisuals,
+};
+
+const industryImagePositions = ["18% center", "32% center", "51% center", "68% center", "8% center", "42% center", "3% center", "58% center", "92% center", "76% center"];
+
+function visualForPage(page: SitePage) {
+  const directVisual = routeVisuals[page.route];
+  if (directVisual) return directVisual;
+  if (page.category === "industry" || page.category === "industries-overview") return "/visuals/industries.webp";
+  if (page.category === "case-study" || page.category === "case-studies-overview") return "/visuals/customer-results.webp";
+
+  if (/3d-|photogrammetry|slam|point/.test(page.route)) return "/visuals/solution-engineering.webp";
+  if (/volumetric|erosion|renewable|project-progress|route-mapping|aerial|vegetation/.test(page.route)) return "/visuals/solution-outdoor.webp";
+  if (/anamoly|structural|safety/.test(page.route)) return "/visuals/solution-assessment.webp";
+  if (/ndt-|radiation|visual-thermal|flyability|training/.test(page.route)) return "/visuals/solution-indoor.webp";
+
+  return "/visuals/delivery.webp";
+}
+
 type VisualStory = {
   src: string;
   alt: string;
@@ -50,76 +83,32 @@ type VisualStory = {
 
 const visualStories: Record<string, VisualStory[]> = {
   "/": [{
-    src: "/deck/how-we-deliver.webp",
-    alt: "Birdseye delivery workflow from defining the asset challenge through capture, digitization, engineering, assessment and delivery",
+    src: "/visuals/delivery.webp",
+    alt: "A field specialist captures a bridge while the same asset becomes a point cloud, engineering model and prioritized decision",
     label: "Connected delivery",
-    title: "One clear route from field capture to a useful decision.",
-    copy: "Each stage is connected, so customers receive practical information rather than disconnected files and raw data.",
+    title: "One clear route from field reality to a useful decision.",
+    copy: "Inspection, digitization, engineering and assessment stay connected, so your team receives practical information—not disconnected files and raw data.",
   }],
   "/solutions/": [{
-    src: "/deck/why-birdseye.webp",
-    alt: "Birdseye value proposition across inspection, digitization, engineering and assessment",
+    src: "/visuals/delivery.webp",
+    alt: "An industrial asset moves from field capture through digital engineering to practical decision support",
     label: "The complete value journey",
     title: "Capabilities selected around the outcome you need.",
-    copy: "Birdseye combines safer access, reality capture, engineering-ready outputs and assessment into one flexible delivery model.",
-  }],
-  "/solutions/indoor-confined-space/": [{
-    src: "/deck/indoor-solutions.webp",
-    alt: "Indoor and confined-space inspection applications and customer benefits",
-    label: "Indoor and confined-space solutions",
-    title: "See difficult areas while reducing manual entry and access preparation.",
-    copy: "Remote capture helps teams inspect tanks, ducts, silos, tunnels and complex structures with clearer evidence and less disruption.",
-  }],
-  "/solutions/outdoor-asset-intelligence/": [{
-    src: "/deck/outdoor-intelligence.webp",
-    alt: "Outdoor asset intelligence services for industrial and infrastructure assets",
-    label: "Outdoor asset intelligence",
-    title: "Capture the bigger picture and turn it into measurable site information.",
-    copy: "Aerial and spatial capture supports mapping, planning, progress monitoring, volume measurement and external asset review.",
-  }],
-  "/solutions/reality-capture-digital-engineering/": [
-    {
-      src: "/deck/reality-capture.webp",
-      alt: "Advanced reality capture and digitization methods for industrial assets",
-      label: "Digitize",
-      title: "Build an accurate digital record of the asset.",
-      copy: "The right capture method reduces manual measurement effort and creates reliable geometry for engineering work.",
-    },
-    {
-      src: "/deck/digital-engineering.webp",
-      alt: "Digital engineering outputs including CAD, BIM, reverse engineering and dimensional verification",
-      label: "Engineer",
-      title: "Convert captured reality into engineering-ready information.",
-      copy: "Customers receive outputs that reduce rework, speed up validation and support maintenance, retrofit and design decisions.",
-    },
-  ],
-  "/solutions/asset-intelligence-assessment/": [{
-    src: "/deck/asset-assessment.webp",
-    alt: "Asset intelligence and assessment workflow showing condition insight and decision support",
-    label: "Assess",
-    title: "Move from inspection evidence to measurable asset decisions.",
-    copy: "Condition assessment, change detection and connected asset records help teams prioritise maintenance and investment.",
-  }],
-  "/industries/": [{
-    src: "/deck/industries.webp",
-    alt: "Industrial customer challenges and benefits across oil and gas, power, mining and infrastructure",
-    label: "Built around the operating reality",
-    title: "Different industries. Familiar pressure on safety, uptime and cost.",
-    copy: "The solution starts with the customer's difficult asset, operational constraint and required business outcome.",
+    copy: "Birdseye combines safer access, accurate reality capture, engineering-ready outputs and assessment in one flexible delivery model.",
   }],
   "/case-studies/": [{
-    src: "/deck/industrial-references.webp",
-    alt: "Selected Birdseye industrial reference portfolio",
-    label: "Industrial experience",
-    title: "Experience across demanding asset environments.",
-    copy: "Birdseye supports industrial customers across energy, utilities, manufacturing and infrastructure environments.",
+    src: "/visuals/customer-results.webp",
+    alt: "Maintenance and operations leaders review a digital asset record and prioritized findings at an industrial facility",
+    label: "Customer results",
+    title: "Evidence your team can understand and use.",
+    copy: "The real value is not the capture method. It is faster understanding, clearer priorities and better-informed maintenance decisions.",
   }],
   "/about-us/": [{
-    src: "/deck/regional-footprint.webp",
-    alt: "Birdseye regional footprint across the UAE, Saudi Arabia, India, the Middle East, Africa and Europe",
-    label: "Regional footprint",
-    title: "Regional leadership with flexible delivery support.",
-    copy: "Birdseye combines corporate governance, local execution and specialist partners to support projects across priority industrial markets.",
+    src: "/visuals/delivery.webp",
+    alt: "Field capture, digital engineering and condition assessment connected across one industrial asset journey",
+    label: "How we work",
+    title: "Regional accountability from capture to decision.",
+    copy: "Birdseye combines local execution, industrial experience and the right specialist capabilities around each customer challenge.",
   }],
 };
 
@@ -127,7 +116,7 @@ const leadershipProfiles = [
   {
     name: "Michael Schlunegger",
     role: "Managing Director, Middle East & Europe",
-    photoClass: "leader-photo-michael",
+    photo: "/visuals/michael-schlunegger.webp",
     bio: [
       "Swiss business executive with 30+ years of leadership experience across industrial technology, construction and service businesses.",
       "Background includes Oerlikon, Schindler, Hilti and Schüco.",
@@ -138,7 +127,7 @@ const leadershipProfiles = [
   {
     name: "Partha Dash",
     role: "CEO & Managing Director, India",
-    photoClass: "leader-photo-partha",
+    photo: "/visuals/partha-dash.webp",
     bio: [
       "Business leader with 20+ years of cross-functional experience driving transformation, revenue growth and strategic initiatives across manufacturing, supply chain and international business development.",
       "Mechanical engineer with postgraduate business management education.",
@@ -155,13 +144,14 @@ function secondaryHref(page: SitePage) {
 }
 
 function Hero({ page, home = false }: { page: SitePage; home?: boolean }) {
+  const pageVisual = visualForPage(page);
   const heroStyle = {
-    "--hero-image-url": `url("${assetPath("/birdseye-asset-intelligence-hero.webp")}")`,
+    "--hero-image-url": `url("${assetPath(pageVisual)}")`,
   } as CSSProperties;
 
   return (
     <section className={home ? "hero hero-home" : "hero hero-inner"}>
-      {home && <div className="hero-image" aria-hidden="true" style={heroStyle} />}
+      <div className={`hero-image ${home ? "" : "hero-image-inner"}`} aria-hidden="true" style={heroStyle} />
       <div className="hero-grid" aria-hidden="true" />
       <div className="container hero-content">
         {!home && (
@@ -216,15 +206,30 @@ function CardGrid({
               : type === "insight"
                 ? Layers3
                 : Building2;
+        const cardVisual = type === "solution"
+          ? solutionVisuals[page.route]
+          : type === "industry"
+            ? "/visuals/industries.webp"
+            : undefined;
+        const cardImageStyle = type === "industry"
+          ? { objectPosition: industryImagePositions[index % industryImagePositions.length] }
+          : undefined;
         return (
-          <Link className="content-card" href={page.route} key={page.route}>
-            <div className="card-topline">
-              <Icon aria-hidden="true" size={21} />
-              <span>{type === "case" ? "Customer story" : type}</span>
+          <Link className={`content-card ${cardVisual ? "has-media" : ""}`} href={page.route} key={page.route}>
+            {cardVisual && (
+              <figure className="content-card-media">
+                <img alt="" loading="lazy" src={assetPath(cardVisual)} style={cardImageStyle} />
+              </figure>
+            )}
+            <div className="content-card-body">
+              <div className="card-topline">
+                <Icon aria-hidden="true" size={21} />
+                <span>{type === "case" ? "Customer story" : type}</span>
+              </div>
+              <h3>{type === "solution" ? page.sourceTitle : page.title}</h3>
+              <p>{page.heroText}</p>
+              <span className="card-link">Explore <ArrowRight aria-hidden="true" size={16} /></span>
             </div>
-            <h3>{type === "solution" ? page.sourceTitle : page.title}</h3>
-            <p>{page.heroText}</p>
-            <span className="card-link">Explore <ArrowRight aria-hidden="true" size={16} /></span>
           </Link>
         );
       })}
@@ -283,8 +288,8 @@ function LeadershipProfiles() {
         <div className="leadership-grid">
           {leadershipProfiles.map((profile) => (
             <article className="leader-card" key={profile.name}>
-              <div className={`leader-photo ${profile.photoClass}`}>
-                <img src={assetPath("/deck/leadership.webp")} alt={`Portrait of ${profile.name}`} loading="lazy" />
+              <div className="leader-photo">
+                <img src={assetPath(profile.photo)} alt={`Portrait of ${profile.name}`} loading="lazy" />
               </div>
               <div className="leader-copy">
                 <h3>{profile.name}</h3>
