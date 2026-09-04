@@ -47,6 +47,65 @@ const solutionVisuals: Record<string, string> = {
   "/solutions/asset-intelligence-assessment/": "/visuals/solution-assessment.webp",
 };
 
+const industryVisuals: Record<string, string> = {
+  "/oil-and-gas/": "/visuals/industry-oil-gas.webp",
+  "/petrochemical/": "/visuals/industry-petrochemical.webp",
+  "/power/": "/visuals/industry-power.webp",
+  "/maritime/": "/visuals/industry-maritime.webp",
+  "/cement/": "/visuals/industry-cement.webp",
+  "/chemical/": "/visuals/industry-chemical.webp",
+  "/mining/": "/visuals/industry-mining.webp",
+  "/steel/": "/visuals/industry-steel.webp",
+  "/infrastructure/": "/visuals/industry-infrastructure.webp",
+  "/sewer-drones/": "/visuals/industry-water.webp",
+};
+
+const capabilityVisuals: Record<string, string> = {
+  "/3d-modelling/": "/visuals/capability-3d-engineering.webp",
+  "/photogrammetry/": "/visuals/capability-photogrammetry.webp",
+  "/slam/": "/visuals/capability-slam.webp",
+  "/ndt-ut-drone-inspection-services/": "/visuals/capability-ut.webp",
+  "/radiation/": "/visuals/capability-radiation.webp",
+  "/anamoly/": "/visuals/capability-thermal.webp",
+  "/3d-point/": "/visuals/capability-3d-engineering.webp",
+  "/visual-thermal-imaging/": "/visuals/capability-thermal.webp",
+  "/volumetric-analysis/": "/visuals/capability-volumetric.webp",
+  "/structural/": "/visuals/capability-structural.webp",
+  "/erosion-and-drainage-mapping-services/": "/visuals/capability-erosion.webp",
+  "/renewable-assets/": "/visuals/capability-renewable.webp",
+  "/project-progress-monitoring/": "/visuals/capability-progress.webp",
+  "/route-mapping/": "/visuals/capability-corridor.webp",
+  "/3d-mapping/": "/visuals/capability-photogrammetry.webp",
+  "/safety/": "/visuals/capability-indoor.webp",
+  "/aerial/": "/visuals/capability-photogrammetry.webp",
+  "/vegetation/": "/visuals/capability-corridor.webp",
+  "/flyability/": "/visuals/capability-indoor.webp",
+};
+
+const caseStudyVisuals: Record<string, string> = {
+  "/casestudies/inspect-your-stockpiles-with-birdseye-drone/": "/visuals/capability-volumetric.webp",
+  "/casestudies/pushing-the-limits-radiation-testing-at-energy-site/": "/visuals/capability-radiation.webp",
+  "/casestudies/tank-wall-thickness-assessment-with-birdseye-drones-and-ut-technology/": "/visuals/capability-ut.webp",
+  "/casestudies/employ-birdseyes-drones-to-save-60-on-pipe-rack-inspection-costs/": "/visuals/industry-oil-gas.webp",
+  "/casestudies/cargo-oil-tank-inspections-saves-you-from-costing-you-millions/": "/visuals/industry-maritime.webp",
+  "/casestudies/elevated-inspection-of-power-station-with-birdseye/": "/visuals/industry-power.webp",
+  "/casestudies/impact-of-birdseyes-pioneering-drone-to-prevent-hours-of-work-at-height-for-hull-inspections/": "/visuals/industry-maritime.webp",
+  "/casestudies/63-tank-inspections-done-in-just-2-weeks-with-birdseye/": "/visuals/industry-oil-gas.webp",
+  "/casestudies/inspection-of-flue-ducts-and-silo-cones-with-birdseye/": "/visuals/industry-cement.webp",
+  "/casestudies/fix-faults-in-chimney-tower-with-birdseye/": "/visuals/capability-structural.webp",
+  "/casestudies/streamlining-workflow-in-confined-spaces/": "/visuals/capability-indoor.webp",
+  "/casestudies/safer-faster-storage-bin-inspections-with-birdseye/": "/visuals/industry-cement.webp",
+  "/casestudies/mine-inspection-in-south-africa-with-birdseye/": "/visuals/industry-mining.webp",
+  "/casestudies/stormwater-pipeline-inspection-with-birdseye/": "/visuals/industry-water.webp",
+  "/casestudies/drone-river-inspection-for-underground-canals/": "/visuals/industry-water.webp",
+};
+
+const insightVisuals: Record<string, string> = {
+  "/enterprise-drones-characteristics-use-cases-best-models/": "/visuals/capability-indoor.webp",
+  "/guide-to-global-drone-laws-must-know-regulations/": "/visuals/insight-planning.webp",
+  "/the-future-of-inspections-how-drones-are-revolutionizing-asset-management/": "/visuals/delivery.webp",
+};
+
 const routeVisuals: Record<string, string> = {
   "/": "/visuals/hero-digital-intelligence.webp",
   "/solutions/": "/visuals/hero-digital-intelligence.webp",
@@ -54,22 +113,18 @@ const routeVisuals: Record<string, string> = {
   "/case-studies/": "/visuals/customer-results.webp",
   "/about-us/": "/visuals/delivery.webp",
   "/contact-us/": "/visuals/customer-results.webp",
+  "/training/": "/visuals/capability-indoor.webp",
+  "/blog/": "/visuals/insight-planning.webp",
   ...solutionVisuals,
+  ...industryVisuals,
+  ...capabilityVisuals,
+  ...caseStudyVisuals,
+  ...insightVisuals,
 };
-
-const industryImagePositions = ["18% center", "32% center", "51% center", "68% center", "8% center", "42% center", "3% center", "58% center", "92% center", "76% center"];
 
 function visualForPage(page: SitePage) {
   const directVisual = routeVisuals[page.route];
   if (directVisual) return directVisual;
-  if (page.category === "industry" || page.category === "industries-overview") return "/visuals/industries.webp";
-  if (page.category === "case-study" || page.category === "case-studies-overview") return "/visuals/customer-results.webp";
-
-  if (/3d-|photogrammetry|slam|point/.test(page.route)) return "/visuals/solution-engineering.webp";
-  if (/volumetric|erosion|renewable|project-progress|route-mapping|aerial|vegetation/.test(page.route)) return "/visuals/solution-outdoor.webp";
-  if (/anamoly|structural|safety/.test(page.route)) return "/visuals/solution-assessment.webp";
-  if (/ndt-|radiation|visual-thermal|flyability|training/.test(page.route)) return "/visuals/solution-indoor.webp";
-
   return "/visuals/delivery.webp";
 }
 
@@ -206,19 +261,12 @@ function CardGrid({
               : type === "insight"
                 ? Layers3
                 : Building2;
-        const cardVisual = type === "solution"
-          ? solutionVisuals[page.route]
-          : type === "industry"
-            ? "/visuals/industries.webp"
-            : undefined;
-        const cardImageStyle = type === "industry"
-          ? { objectPosition: industryImagePositions[index % industryImagePositions.length] }
-          : undefined;
+        const cardVisual = visualForPage(page);
         return (
           <Link className={`content-card ${cardVisual ? "has-media" : ""}`} href={page.route} key={page.route}>
             {cardVisual && (
               <figure className="content-card-media">
-                <img alt="" loading="lazy" src={assetPath(cardVisual)} style={cardImageStyle} />
+                <img alt="" loading="lazy" src={assetPath(cardVisual)} />
               </figure>
             )}
             <div className="content-card-body">
